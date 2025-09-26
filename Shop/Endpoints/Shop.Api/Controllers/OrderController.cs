@@ -1,0 +1,82 @@
+﻿using Common.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Shop.Application.Orders.AddItem;
+using Shop.Application.Orders.Checkout;
+using Shop.Application.Orders.DecreaseItemCount;
+using Shop.Application.Orders.IncreaseItemCount;
+using Shop.Application.Orders.RemoveItem;
+using Shop.Presentation.Facade.Orders;
+using Shop.Query.Orders.DTOs;
+using Shop.Domain.RoleAgg.Enums;
+using Shop.Api.Infrastructure.Security;
+
+namespace Shop.Api.Controllers
+{
+    [Authorize]
+    public class OrderController : ApiController
+    {
+        private readonly IOrderFacade _orderFacade;
+
+        public OrderController(IOrderFacade orderFacade)
+        {
+            _orderFacade = orderFacade;
+        }
+        [PermissionChecker(Permission.Order_Management)]
+        [HttpGet]
+        public async Task<ApiResult<OrderFilterResult>> GetOrderByFilter([FromQuery]OrderFilterParams filterParams)
+        {
+            var order = await _orderFacade.GetOrdersByFilter(filterParams);
+            return QueryResult(order);
+        }
+        [HttpGet("{orderId}")]
+        public async Task<ApiResult<OrderDto?>> GetOrderById(long orderId)
+        {
+            var order = await _orderFacade.GetOrderById(orderId);
+            return QueryResult(order);
+        }
+        [HttpGet("current")]
+        public async Task<ApiResult<OrderDto?>> GetCurrentOrder()
+        {
+            var result = await _orderFacade.GetCurrentOrder(User.GetUserId());
+            return QueryResult(result);
+        }
+        [HttpPost]
+        public async Task<ApiResult> AddOrderItem(AddOrderItemCommand command)
+        {
+            var result = await _orderFacade.AddOrderItem(command);
+            return CommandResult(result);
+        }
+        [HttpPost("Checkout")]
+        public async Task<ApiResult> CheckoutOrder(CheckOutOrderCommand command)
+        {
+            var result = await _orderFacade.OrderCheckout(command);
+            return CommandResult(result);
+        }
+        [HttpPut("orderItem/DecreaseCount")]
+        public async Task<ApiResult> DecreaseOrderItemCount(DecreaseOrderItemCountCommand command)
+        {
+            var result = await _orderFacade.DecreaseItemCount(command);
+            return CommandResult(result);
+        }
+        [HttpPut("SendOrder/{orderId}")]
+        public async Task<ApiResult> SendOrder(long orderId)
+        {
+            var result = await _orderFacade.SendOrder(orderId);
+            return CommandResult(result);
+        }
+        [HttpPut("orderItem/IncreaseCount")]
+        public async Task<ApiResult> IncreaseOrderItemCount(IncreaseOrderItemCountCommand command)
+        {
+            var result = await _orderFacade.IncreaseItemCount(command);
+            return CommandResult(result);
+        }
+        [HttpDelete("orderItem/{itemId}")]
+        public async Task<ApiResult> RemoveOrderItem(long itemId)
+        {
+            var result = await _orderFacade.RemoveOrderItem(new RemoveOrderItemCommand(User.GetUserId(),itemId));
+            return CommandResult(result);
+        }
+    }
+}

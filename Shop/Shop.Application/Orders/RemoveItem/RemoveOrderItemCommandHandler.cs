@@ -1,0 +1,32 @@
+﻿using Common.Application;
+using Shop.Domain.OrderAgg.Repository;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Shop.Application.Orders.RemoveItem
+{
+    public class RemoveOrderItemCommandHandler:IBaseCommandHandler<RemoveOrderItemCommand>
+    {
+        private readonly IOrderRepository _repository;
+
+        public RemoveOrderItemCommandHandler(IOrderRepository repository)
+        {
+            _repository = repository;
+        }
+
+        public async Task<OperationResult> Handle(RemoveOrderItemCommand request, CancellationToken cancellationToken)
+        {
+            var currentOrder = await _repository.GetCurrentUserOrder(request.UserId);
+            if (currentOrder == null)
+            {
+                return OperationResult.NotFound();
+            }
+            currentOrder.RemoveItem(request.ItemId);
+            await _repository.Save();
+            return OperationResult.Success();
+        }
+    }
+}

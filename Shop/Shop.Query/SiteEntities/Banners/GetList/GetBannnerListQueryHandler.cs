@@ -1,0 +1,34 @@
+﻿using Common.Query;
+using Shop.Infrastructure.Persistent.Ef;
+using Shop.Query.SiteEntities.DTOs;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Shop.Query.SiteEntities.Banners.GetList
+{
+    internal class GetBannnerListQueryHandler : IQueryHandler<GetBannnerListQuery, List<BannerDto>>
+    {
+        private readonly ShopContext _context;
+
+        public GetBannnerListQueryHandler(ShopContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<List<BannerDto>> Handle(GetBannnerListQuery request, CancellationToken cancellationToken)
+        {
+            return await _context.Banners.OrderByDescending(d => d.Id).Select(banner => new BannerDto()
+            {
+                Id = banner.Id,
+                CreationDate = banner.CreationDate,
+                ImageName = banner.ImageName,
+                Link = banner.Link,
+                Position = banner.Position
+            }).ToListAsync(cancellationToken);
+        }
+    }
+}
