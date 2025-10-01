@@ -25,12 +25,7 @@ public class PermissionChecker : AuthorizeAttribute, IAsyncAuthorizationFilter
         if (HasAllowAnonymous(context))
             return;
 
-        var userAgent = context.HttpContext.Request.Headers["User-Agent"].ToString();//یادت باشه برداری اینو بعدا
-        if (userAgent.Contains("Swagger", StringComparison.OrdinalIgnoreCase))//یادت باشه برداری اینو بعدا
-        {
-            return;//یادت باشه برداری اینو بعدا
-        }
-        //یادت باشه برداری اینو بعدا
+        
         _userFacade = context.HttpContext.RequestServices.GetRequiredService<IUserFacade>();
         _roleFacade = context.HttpContext.RequestServices.GetRequiredService<IRoleFacade>();
         if (context.HttpContext.User.Identity.IsAuthenticated)
