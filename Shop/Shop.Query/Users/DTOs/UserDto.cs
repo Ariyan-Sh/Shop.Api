@@ -19,6 +19,6 @@ namespace Shop.Query.Users.DTOs
         public string AvatarName { get; set; }
         public bool IsActive { get; set; }
         public Gender Gender { get; set; }
-        public List<UserRoleDto> Roles { get; set; }
+        public List<UserRoleDto> Roles { get; set; } 
     }
 }

@@ -14,7 +14,7 @@ namespace Shop.Query.Users
     {
         public static UserDto Map(this User user)
         {
-            return new UserDto()
+            var userDto = new UserDto()
             {
                 Id = user.Id,
                 CreationDate = user.CreationDate,
@@ -26,12 +26,14 @@ namespace Shop.Query.Users
                 Name = user.Name,
                 Password = user.Password,
                 IsActive = user.IsActive,
-                Roles = user.Roles.Select(role => new UserRoleDto
+                Roles = user.Roles.Select( role => new UserRoleDto
                 {
-                    RoleId = role.Id,
-                    RoleTitle = ""
+                    RoleId = role.RoleId,
+                    RoleTitle = "",
+                    Id = role.Id
                 }).ToList(),
             };
+            return userDto;
         }
 
         public static async Task<UserDto> SetUserRoleTitle(this UserDto userDto,ShopContext context)
