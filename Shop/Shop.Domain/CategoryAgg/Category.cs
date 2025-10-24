@@ -15,13 +15,14 @@ namespace Shop.Domain.CategoryAgg
     {
         private Category()
         {
-            
+            Childs = new List<Category>();
         }
         public Category(string title, string slug, SeoData seoData, ICategoryDomainService service)
         {
+            slug = slug?.ToSlug();
             Guard(title, slug, service);
             Title = title;
-            slug = slug?.ToSlug();
+            Slug = slug;
             SeoData = seoData;
             Childs = new List<Category>();
         }
@@ -34,9 +35,10 @@ namespace Shop.Domain.CategoryAgg
 
         public void Edit(string title, string slug, SeoData seoData, ICategoryDomainService service)
         {
+            slug = slug?.ToSlug();
             Guard(title, slug, service);
             Title = title;
-            slug = slug?.ToSlug();
+            Slug = slug;
             SeoData = seoData;
         }
 

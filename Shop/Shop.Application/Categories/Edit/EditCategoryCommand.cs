@@ -9,5 +9,5 @@ using System.Threading.Tasks;
 
 namespace Shop.Application.Categories.Edit
 {
-    public record EditCategoryCommand(long id,string title, string slug, SeoData seoData, ICategoryDomainService service) :IBaseCommand;
+    public record EditCategoryCommand(long Id,string Title, string Slug, SeoData SeoData) :IBaseCommand;
 }

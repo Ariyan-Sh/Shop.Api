@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 
 namespace Shop.Application.Categories.Remove
 {
-    public record RemoveCategoryCommand(long categoryId):IBaseCommand;
+    public record RemoveCategoryCommand(long CategoryId):IBaseCommand;
 }

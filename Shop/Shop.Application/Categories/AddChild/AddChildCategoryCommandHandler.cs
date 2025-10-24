@@ -27,7 +27,7 @@ namespace Shop.Application.Categories.AddChild
             {
                 return OperationResult<long>.NotFound();
             }
-            category.AddChild(request.title, request.slug, request.seoData, _domainservice);
+            category.AddChild(request.Title, request.Slug, request.SeoData, _domainservice);
             await _repository.Save();
             return OperationResult<long>.Success(category.Id);
         }

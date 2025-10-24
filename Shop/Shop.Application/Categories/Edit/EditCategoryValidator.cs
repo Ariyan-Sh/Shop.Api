@@ -12,9 +12,9 @@ namespace Shop.Application.Categories.Edit
     {
         public EditCategoryValidator()
         {
-            RuleFor(r => r.title).NotNull().NotEmpty().WithMessage(ValidationMessages.required("عنوان"));
+            RuleFor(r => r.Title).NotNull().NotEmpty().WithMessage(ValidationMessages.required("عنوان"));
 
-            RuleFor(r => r.slug).NotNull().NotEmpty().WithMessage(ValidationMessages.required("Slug"));
+            RuleFor(r => r.Slug).NotNull().NotEmpty().WithMessage(ValidationMessages.required("Slug"));
 
         }
     }

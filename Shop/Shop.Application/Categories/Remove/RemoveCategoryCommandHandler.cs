@@ -19,7 +19,7 @@ namespace Shop.Application.Categories.Remove
 
         public async Task<OperationResult> Handle(RemoveCategoryCommand request, CancellationToken cancellationToken)
         {
-            var result = await _categoryRepository.DeleteCategory(request.categoryId);
+            var result = await _categoryRepository.DeleteCategory(request.CategoryId);
             if (result)
             {
                 await _categoryRepository.Save();

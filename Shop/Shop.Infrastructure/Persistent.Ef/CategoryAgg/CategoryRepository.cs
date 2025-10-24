@@ -35,6 +35,7 @@ namespace Shop.Infrastructure.Persistent.Ef.CategoryAgg
                 Context.RemoveRange(category.Childs.SelectMany(s=>s.Childs));
             }
             Context.RemoveRange(category.Childs);
+            Context.RemoveRange(category);
             return true;
         }
     }
