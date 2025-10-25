@@ -9,7 +9,7 @@ namespace Shop.Query.Sellers.DTOs
 {
     public class SellerFilterPrarams:BaseFilterParam
     {
-        public string ShopName { get; set; }
-        public string NationalCode { get; set; }
+        public string? ShopName { get; set; }
+        public string? NationalCode { get; set; }
     }
 }

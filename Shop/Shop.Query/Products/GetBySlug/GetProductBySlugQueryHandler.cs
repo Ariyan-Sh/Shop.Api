@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace Shop.Query.Products.GetBySlug
 {
-    internal class GetProductBySlugQueryHandler : IQueryHandler<GetProductBySlugQuery, ProductDto>
+    internal class GetProductBySlugQueryHandler : IQueryHandler<GetProductBySlugQuery, ProductDto?>
     {
         private readonly ShopContext _context;
-        public async Task<ProductDto> Handle(GetProductBySlugQuery request, CancellationToken cancellationToken)
+        public async Task<ProductDto?> Handle(GetProductBySlugQuery request, CancellationToken cancellationToken)
         {
             var product = await _context.Products
             .FirstOrDefaultAsync(f => f.Slug == request.Slug, cancellationToken);

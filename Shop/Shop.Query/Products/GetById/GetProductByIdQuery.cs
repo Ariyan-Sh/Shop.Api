@@ -8,5 +8,5 @@ using System.Threading.Tasks;
 
 namespace Shop.Query.Products.GetById
 {
-    public record GetProductByIdQuery(long ProductId):IQuery<ProductDto>;
+    public record GetProductByIdQuery(long ProductId):IQuery<ProductDto?>;
 }

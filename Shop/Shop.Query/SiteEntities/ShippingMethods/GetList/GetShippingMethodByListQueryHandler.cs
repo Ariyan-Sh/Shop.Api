@@ -1,8 +1,8 @@
 ﻿using Common.Query;
+using Microsoft.EntityFrameworkCore;
 using Shop.Domain.SiteEntities.Repository;
 using Shop.Infrastructure.Persistent.Ef;
 using Shop.Query.SiteEntities.DTOs;
-using System.Data.Entity;
 
 namespace Shop.Query.SiteEntities.ShippingMethods.GetList
 {

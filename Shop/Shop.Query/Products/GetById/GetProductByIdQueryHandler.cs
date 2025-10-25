@@ -1,9 +1,9 @@
 ﻿using Common.Query;
+using Microsoft.EntityFrameworkCore;
 using Shop.Infrastructure.Persistent.Ef;
 using Shop.Query.Products.DTOs;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +21,8 @@ namespace Shop.Query.Products.GetById
 
         public async Task<ProductDto?> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
         {
-            var product = await _context.Products.FirstOrDefaultAsync(f=>f.Id==request.ProductId, cancellationToken);
+            var product = await _context.Products
+                .FirstOrDefaultAsync(f=>f.Id==request.ProductId, cancellationToken);
 
             var model = product.Map();
             if(model == null)

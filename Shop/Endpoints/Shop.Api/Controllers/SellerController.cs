@@ -25,7 +25,7 @@ namespace Shop.Api.Controllers
         }
         [HttpGet]
         [PermissionChecker(Permission.Seller_Management)]
-        public async Task<ApiResult<SellerFilterResult>> GetSellers(SellerFilterPrarams filterPrarams)
+        public async Task<ApiResult<SellerFilterResult>> GetSellers([FromQuery]SellerFilterPrarams filterPrarams)
         {
             var result = await _sellerFacade.GetsellersByFilter(filterPrarams);
             return QueryResult(result);

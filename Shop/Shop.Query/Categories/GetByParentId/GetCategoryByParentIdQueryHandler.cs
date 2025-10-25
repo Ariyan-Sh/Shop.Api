@@ -1,9 +1,9 @@
 ﻿using Common.Query;
+using Microsoft.EntityFrameworkCore;
 using Shop.Infrastructure.Persistent.Ef;
 using Shop.Query.Categories.DTOs;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +21,10 @@ namespace Shop.Query.Categories.GetByParentId
 
         public async Task<List<ChildCategoryDto>> Handle(GetCategoryByParentIdQuery request, CancellationToken cancellationToken)
         {
-            var result = await _context.Categories.Where(r => r.ParentId == request.ParentId).ToListAsync(cancellationToken);
+            var result = await _context.Categories
+                .Include(c => c.Childs)
+                .Where(r => r.ParentId == request.ParentId).ToListAsync(cancellationToken);
+
             return result.MapChildren();
         }
     }

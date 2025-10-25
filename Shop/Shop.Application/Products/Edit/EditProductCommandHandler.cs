@@ -1,5 +1,4 @@
-﻿using AngleSharp.Io;
-using Common.Application;
+﻿using Common.Application;
 using Common.Application.FileUtil.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Shop.Application._Utilities;
@@ -34,7 +33,7 @@ namespace Shop.Application.Products.Edit
             {
                 return OperationResult.NotFound();
             }
-            product.Edit(request.Title, request.Description, request.CategoryId, request.SubCategoryId, request.SubCategoryId, request.Slug, _domainService, request.SeoData);
+            product.Edit(request.Title, request.Description, request.CategoryId, request.SubCategoryId, request.SecondarySubCategoryId, request.Slug, _domainService, request.SeoData);
             var oldImage = product.ImageName;
             if(request.ImageFile != null)
             {

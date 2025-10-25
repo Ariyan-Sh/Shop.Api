@@ -46,7 +46,7 @@ namespace Shop.Domain.ProductAgg
         public List<ProductSpecification> Specifications { get; private set; }
 
         public void Edit(string title, string description,
-            long categoryId, long subCategoryId, long? secondarySubCategoryId,
+            long categoryId, long subCategoryId, long secondarySubCategoryId,
             string slug, IProductDomainService domainService, SeoData seoData)
         {
             Guard(title,slug, description,domainService);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Query.Products.GetBySlug
 {
-    public class GetProductBySlugQuery:IQuery<ProductDto>
+    public class GetProductBySlugQuery:IQuery<ProductDto?>
     {
         public GetProductBySlugQuery(string slug)
         {
