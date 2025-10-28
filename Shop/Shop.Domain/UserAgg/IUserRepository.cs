@@ -10,6 +10,6 @@ namespace Shop.Domain.UserAgg
 {
     public interface IUserRepository:IBaseRepository<User>
     {
-
+        Task<List<User>> SearchUsersAsync(string query, int take = 20);
     }
 }

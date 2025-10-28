@@ -28,5 +28,6 @@ namespace Shop.Presentation.Facade.Users
         Task<UserTokenDto?> GetUserTokenByRefreshToken(string refreshToken);
         Task<UserTokenDto?> GetUserTokenByJwtToken(string jwtToken);
         Task<UserFilterResult> GetUserByFilter(UserFilterParams filterParams);
+        Task<List<Select2UserDto>> SearchUsers(string query, int take = 20);
     }
 }

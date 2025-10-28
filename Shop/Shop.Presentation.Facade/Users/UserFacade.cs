@@ -13,6 +13,7 @@ using Shop.Query.Users.GetById;
 using Shop.Query.Users.GetByPhoneNumber;
 using Shop.Query.Users.UserTokens.GetByJwtToken;
 using Shop.Query.Users.UserTokens.GetByRefreshToken;
+using Shop.Query.Users.SearchUser;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,6 +88,11 @@ namespace Shop.Presentation.Facade.Users
         public async Task<OperationResult> RemoveToken(RemoveUserTokenCommand command)
         {
             return await _mediator.Send(command);
+        }
+
+        public async Task<List<Select2UserDto>> SearchUsers(string query, int take = 20)
+        {
+            return await _mediator.Send(new SearchUserQuery(query, take));
         }
     }
 }

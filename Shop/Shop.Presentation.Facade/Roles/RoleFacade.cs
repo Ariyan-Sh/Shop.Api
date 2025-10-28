@@ -1,5 +1,6 @@
 ﻿using Common.Application;
 using MediatR;
+using Shop.Application.Roles.AssignRole;
 using Shop.Application.Roles.Create;
 using Shop.Application.Roles.Edit;
 using Shop.Query.Roles.DTOs;
@@ -21,6 +22,11 @@ namespace Shop.Presentation.Facade.Roles
         public RoleFacade(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        public async Task<OperationResult> AssignRole(AssignRoleCommand command)
+        {
+            return await _mediator.Send(command);
         }
 
         public async Task<OperationResult> CreateRole(CreateRoleCommand command)

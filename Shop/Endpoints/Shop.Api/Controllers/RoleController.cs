@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Api.Infrastructure.Security;
+using Shop.Application.Roles.AssignRole;
 using Shop.Application.Roles.Create;
 using Shop.Application.Roles.Edit;
 using Shop.Domain.RoleAgg.Enums;
@@ -41,6 +42,12 @@ namespace Shop.Api.Controllers
         public async Task<ApiResult> EditRole(EditRoleCommand command)
         {
             var result = await _roleFacade.EditRole(command);
+            return CommandResult(result);
+        }
+        [HttpPost("assign-role")]
+        public async Task<ApiResult> AssignRole(AssignRoleCommand command)
+        {
+            var result = await _roleFacade.AssignRole(command);
             return CommandResult(result);
         }
     }

@@ -54,9 +54,13 @@ namespace Shop.Api.Controllers
         }
         [PermissionChecker(Permission.User_Management)]
         [HttpPut]
-        public async Task<ApiResult> Edit([FromForm]EditUserCommand command)
+        public async Task<ApiResult> Edit([FromForm]EditUserForAdminViewModel command)
         {
-            var result = await _userFacade.EditUser(command);
+            var commandModel = new EditUserCommand(command.UserId,
+                command.Avatar, command.Name, command.Family,
+                command.PhoneNumber, command.Email, command.Gender);
+
+            var result = await _userFacade.EditUser(commandModel);
             return CommandResult(result);
         }
         [HttpPut("Current")]
@@ -77,5 +81,13 @@ namespace Shop.Api.Controllers
             var result = await _userFacade.ChangePassword(changePasswordModel);
             return CommandResult(result);
         }
+        [PermissionChecker(Permission.User_Management)]
+        [HttpGet("Search")]
+        public async Task<ApiResult<List<Select2UserDto>>> SearchUsers([FromQuery] string query, [FromQuery] int take = 20)
+        {
+            var result = await _userFacade.SearchUsers(query, take);
+            return QueryResult(result);
+        }
+
     }
 }

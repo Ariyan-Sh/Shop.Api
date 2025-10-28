@@ -30,6 +30,12 @@ namespace Shop.Query.Users.GetByFilter
             if (!string.IsNullOrWhiteSpace(@params.PhoneNumber))
                 result = result.Where(r => r.PhoneNumber.Contains(@params.PhoneNumber));
 
+            if (!string.IsNullOrWhiteSpace(@params.Name))
+                result = result.Where(r => r.Name.Contains(@params.Name));
+
+            if (!string.IsNullOrWhiteSpace(@params.Family))
+                result = result.Where(r => r.Family.Contains(@params.Family));
+
             if (@params.Id != null)
                 result = result.Where(r => r.Id == @params.Id);
 
