@@ -14,6 +14,12 @@ namespace Shop.Query.Sellers.Inventories.GetList
     internal class GetInventoriesQueryHandler : IQueryHandler<GetInventoriesQuery, List<InventoryDto>>
     {
         private readonly DapperContext _context;
+
+        public GetInventoriesQueryHandler(DapperContext context)
+        {
+            _context = context;
+        }
+
         public async Task<List<InventoryDto>> Handle(GetInventoriesQuery request, CancellationToken cancellationToken)
         {
             using var connection = _context.CreateConnection();

@@ -8,6 +8,7 @@ public static class JwtAuthenticationConfig
 {
     public static void AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
+
         services.AddAuthentication(option =>
         {
             option.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -53,6 +54,6 @@ public static class JwtAuthenticationConfig
         //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtConfig:SecretKey"]))
         //    };
         //});
-        services.AddAuthentication();
+        services.AddAuthorization();
     }
 }
