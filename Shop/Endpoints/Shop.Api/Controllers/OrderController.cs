@@ -11,6 +11,7 @@ using Shop.Presentation.Facade.Orders;
 using Shop.Query.Orders.DTOs;
 using Shop.Domain.RoleAgg.Enums;
 using Shop.Api.Infrastructure.Security;
+using Shop.Domain.OrderAgg.Enums;
 
 namespace Shop.Api.Controllers
 {
@@ -40,6 +41,20 @@ namespace Shop.Api.Controllers
         public async Task<ApiResult<OrderDto?>> GetCurrentOrder()
         {
             var result = await _orderFacade.GetCurrentOrder(User.GetUserId());
+            return QueryResult(result);
+        }
+        [HttpGet("current/filter")]
+        public async Task<ApiResult<OrderFilterResult>> GetUserOrdersByFilter(int pageId = 1, int take = 10, OrderStatus status = OrderStatus.Finally)
+        {
+            var result = await _orderFacade.GetOrdersByFilter(new OrderFilterParams()
+            {
+                PageId = pageId,
+                Take = take,
+                Status = status,
+                EndDate = null,
+                StartDate = null,
+                UserId = User.GetUserId()
+            });
             return QueryResult(result);
         }
         [HttpPost]
